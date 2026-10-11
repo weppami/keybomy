@@ -1,0 +1,46 @@
+[Unit]
+Description=keybomy key counter (counts presses, never what you type)
+Documentation=file://@SOURCE@/README.md
+After=systemd-udevd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -I @DAEMON@ @DATA@
+Restart=on-failure
+RestartSec=5
+
+# Runs as you, not root, so everything it writes is yours. Only this process
+# gets the input group; the daemon also marks itself non-dumpable so your other
+# processes can't borrow its device handles.
+User=@USER@
+Group=@GROUP@
+SupplementaryGroups=input
+
+# Sandbox: read keyboards, write the data folder, nothing else.
+NoNewPrivileges=yes
+PrivateNetwork=yes
+IPAddressDeny=any
+RestrictAddressFamilies=AF_UNIX
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=@DATA@
+PrivateTmp=yes
+DevicePolicy=closed
+DeviceAllow=char-input r
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

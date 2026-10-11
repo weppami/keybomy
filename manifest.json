@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "keybomy",
+  "name": "Keybomy",
+  "version": "0.1.0",
+  "author": "weppami",
+  "license": "MIT",
+  "description": "Fun keyboard stats in your bar: keys today, streaks, best WPM and Shakespearean badges. Counts presses, never what you type. A port of Shakespeare by andreasaez.",
+  "homepage": "https://github.com/weppami/keybomy",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Keybomy",
+    "description": "Keys typed today; click for streaks, speed, fun facts and badges",
+    "category": "Info",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "icon": "󰌌",
+      "compact": true
+    },
+    "schema": [
+      { "key": "icon", "type": "string", "label": "Icon", "defaultValue": "󰌌", "description": "Shown before today's count. Leave empty for the number alone." },
+      { "key": "compact", "type": "boolean", "label": "Compact count", "defaultValue": true, "description": "Show 12k instead of 12,431 in the bar." }
+    ]
+  }
+}
